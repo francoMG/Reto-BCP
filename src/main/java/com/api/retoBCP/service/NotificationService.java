@@ -7,6 +7,7 @@ import com.api.retoBCP.repository.NotificationTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,9 +28,11 @@ public class NotificationService {
         return notif;
     }
     public void addNotification(Notification notif){
+        LocalDateTime createdAt = LocalDateTime.now();
 
         Optional<NotificationType> temp = notificationTypeRepository.findById(notif.getNotificationType().getId());
         notif.setNotificationType(temp.get());
+        notif.setCreatedAt(createdAt);
         notificationRepository.save(notif);
     }
 
