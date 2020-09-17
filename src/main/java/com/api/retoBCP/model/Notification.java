@@ -16,15 +16,14 @@ public class Notification {
     @ManyToOne
     private NotificationType notificationType;
     private boolean readNotif;
-
+    private Float amount;
     private boolean deleted;
 
-    public Notification(Integer id, Integer user_id, String title, String message, boolean readNotif,
+    public Notification(Integer id, Integer user_id, String title, boolean readNotif,
                         boolean deleted) {
         this.id = id;
         this.user_id = user_id;
         this.title = title;
-        this.message = message;
         this.readNotif = readNotif;
         this.deleted = deleted;
 
@@ -80,6 +79,14 @@ public class Notification {
         this.message = message;
     }
 
+
+    public Float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Float amount) {
+        this.amount = amount;
+    }
 
 
     public void setReadNotif(boolean readNotif) {

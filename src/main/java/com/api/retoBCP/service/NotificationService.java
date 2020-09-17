@@ -33,6 +33,17 @@ public class NotificationService {
         Optional<NotificationType> temp = notificationTypeRepository.findById(notif.getNotificationType().getId());
         notif.setNotificationType(temp.get());
         notif.setCreatedAt(createdAt);
+        System.out.println(notif.getNotificationType().getType().toString());
+
+        if(notif.getNotificationType().getType().toString().equals("LoggedIn")){
+            notif.setMessage("You accessed your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
+            + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
+        }
+        if(notif.getNotificationType().getType().toString().equals("Deposit") && notif.getAmount() > 0){
+            notif.setMessage("You deposited "+notif.getAmount() + "into your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
+                    + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
+        } else notif.setAmount(-1.0f);
+
         notificationRepository.save(notif);
     }
 
