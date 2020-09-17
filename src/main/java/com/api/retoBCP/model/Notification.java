@@ -7,11 +7,12 @@ import java.time.LocalDateTime;
 public class Notification {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer user_id;
     private String title;
     private String message;
-
+    private LocalDateTime createdAt;
     @ManyToOne
     private NotificationType notificationType;
     private boolean readNotif;
@@ -27,6 +28,8 @@ public class Notification {
         this.readNotif = readNotif;
         this.deleted = deleted;
 
+
+
     }
 
     public Notification() {
@@ -41,6 +44,17 @@ public class Notification {
         this.id = id;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public boolean isReadNotif() {
+        return readNotif;
+    }
 
     public Integer getUser_id() {
         return user_id;
@@ -67,9 +81,6 @@ public class Notification {
     }
 
 
-    public boolean getReadNotif() {
-        return readNotif;
-    }
 
     public void setReadNotif(boolean readNotif) {
         this.readNotif = readNotif;
