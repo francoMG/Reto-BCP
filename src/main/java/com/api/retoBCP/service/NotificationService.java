@@ -40,7 +40,11 @@ public class NotificationService {
             + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
         }
         if(notif.getNotificationType().getType().toString().equals("Deposit") && notif.getAmount() > 0){
-            notif.setMessage("You deposited "+notif.getAmount() + "into your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
+            notif.setMessage("You deposited "+notif.getAmount() + " soles into your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
+                    + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
+        }
+        if(notif.getNotificationType().getType().toString().equals("Withdrawal") && notif.getAmount() > 0){
+            notif.setMessage("You withdrew "+notif.getAmount() + " soles into your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
                     + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
         } else notif.setAmount(-1.0f);
 
