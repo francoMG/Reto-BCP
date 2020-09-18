@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Thu Sep 17 18:27:26 COT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0174-9e64-e055-000001bb2d40 
-on database directory memory:C:\Users\arian\OneDrive\Desktop\Reto BCP\retoBCP\c18006cd-3d10-496a-bf4a-93fd00540824 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@2626b418 
-Loaded from file:/C:/Users/arian/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+Thu Sep 17 19:01:23 PET 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0174-9e83-d92f-000001ad54c8 
+on database directory memory:C:\Users\franc\Desktop\projects\Reto-BCP\b70f9182-eda3-46d4-b751-c8caf1a81c19 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44 
+Loaded from file:/C:/Users/franc/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation
 java.runtime.version=14.0.1+7
 user.dir=C:\Users\franc\Desktop\projects\Reto-BCP
