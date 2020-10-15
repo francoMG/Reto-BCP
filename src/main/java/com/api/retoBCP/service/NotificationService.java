@@ -27,8 +27,21 @@ public class NotificationService {
         Notification notif =  notificationRepository.findById(id).get();
         return notif;
     }
-    public Notification findById(Integer id){
-        return notificationRepository.findById(id).get();
+    public List<Notification> findById(Integer id){
+        List<Notification> notifs = notificationRepository.findAll();
+        List<Notification> userNotifs = new ArrayList<>();
+        for(Notification notif : notifs){
+            if(notif.getUser_id().equals(id)){
+                userNotifs.add(notif);
+            }
+        }
+
+        if(userNotifs.size() > 0){
+            return userNotifs;
+        }else{
+            return null;
+        }
+
     }
     public void addNotification(Notification notif){
         LocalDateTime createdAt = LocalDateTime.now();
@@ -38,15 +51,15 @@ public class NotificationService {
         notif.setCreatedAt(createdAt);
         System.out.println(notif.getNotificationType().getType().toString());
 
-        if(notif.getNotificationType().getType().toString().equals("LoggedIn")){
+        if(notif.getNotificationType().getType().toString().toLowerCase().equals("LoggedIn")){
             notif.setMessage("You accessed your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
             + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
-        }
-        if(notif.getNotificationType().getType().toString().equals("Deposit") && notif.getAmount() > 0){
+        }else
+        if(notif.getNotificationType().getType().toString().toLowerCase().equals("deposit") && notif.getAmount() > 0){
             notif.setMessage("You deposited "+notif.getAmount() + " soles into your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
                     + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
-        }
-        if(notif.getNotificationType().getType().toString().equals("Withdrawal") && notif.getAmount() > 0){
+        }else
+        if(notif.getNotificationType().getType().toString().toLowerCase().equals("Withdrawal") && notif.getAmount() > 0){
             notif.setMessage("You withdrew "+notif.getAmount() + " soles into your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
                     + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
         } else notif.setAmount(-1.0f);

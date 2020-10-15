@@ -2,7 +2,10 @@ package com.api.retoBCP.controller;
 
 import com.api.retoBCP.model.Notification;
 import com.api.retoBCP.service.NotificationService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +29,14 @@ public class NotificationController {
         notificationService.addNotification(notification);
     }
     @GetMapping("/{id}")
-    public Notification getNotification(@PathVariable Integer id){
-        return notificationService.findById(id);
+    public ResponseEntity<List<Notification>> getNotification(@PathVariable Integer id){
+        List<Notification> notifs = notificationService.findById(id);
+        if( notifs != null){
+            return new ResponseEntity<>(notifs, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name="notificaciones")
 public class Notification {
 
     @Id
@@ -15,6 +16,7 @@ public class Notification {
     private LocalDateTime createdAt;
     @ManyToOne
     private NotificationType notificationType;
+
     private boolean readNotif;
     private Float amount;
     private boolean deleted;
