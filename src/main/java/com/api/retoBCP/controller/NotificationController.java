@@ -25,5 +25,10 @@ public class NotificationController {
     public void addNotification(@RequestBody Notification notification){
         notificationService.addNotification(notification);
     }
+    @GetMapping("/{id}")
+    public Notification getNotification(@PathVariable Integer id){
+        return notificationService.findById(id);
+    }
+
 
 }

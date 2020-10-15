@@ -27,6 +27,9 @@ public class NotificationService {
         Notification notif =  notificationRepository.findById(id).get();
         return notif;
     }
+    public Notification findById(Integer id){
+        return notificationRepository.findById(id).get();
+    }
     public void addNotification(Notification notif){
         LocalDateTime createdAt = LocalDateTime.now();
 
@@ -51,5 +54,9 @@ public class NotificationService {
         notificationRepository.save(notif);
     }
 
+    public Notification getLastNotification(){
 
+        Notification notif = getAllNotifications().get(getAllNotifications().size()-1);
+        return notif;
+    }
 }
