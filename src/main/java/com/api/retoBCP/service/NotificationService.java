@@ -51,7 +51,7 @@ public class NotificationService {
         notif.setCreatedAt(createdAt);
         System.out.println(notif.getNotificationType().getType().toString());
 
-        if(notif.getNotificationType().getType().toString().toLowerCase().equals("LoggedIn")){
+        if(notif.getNotificationType().getType().toString().toLowerCase().equals("loggedin")){
             notif.setMessage("You accessed your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
             + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
         }else
@@ -59,7 +59,7 @@ public class NotificationService {
             notif.setMessage("You deposited "+notif.getAmount() + " soles into your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
                     + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
         }else
-        if(notif.getNotificationType().getType().toString().toLowerCase().equals("Withdrawal") && notif.getAmount() > 0){
+        if(notif.getNotificationType().getType().toString().toLowerCase().equals("withdrawal") && notif.getAmount() > 0){
             notif.setMessage("You withdrew "+notif.getAmount() + " soles into your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
                     + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
         } else notif.setAmount(-1.0f);
