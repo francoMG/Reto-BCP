@@ -27,7 +27,7 @@ public class NotificationService {
         Notification notif =  notificationRepository.findById(id).get();
         return notif;
     }
-    public List<Notification> findById(Integer id){
+    public List<Notification> findByUserId(Integer id){
         List<Notification> notifs = notificationRepository.findAll();
         List<Notification> userNotifs = new ArrayList<>();
         for(Notification notif : notifs){
@@ -43,6 +43,47 @@ public class NotificationService {
         }
 
     }
+
+    public List<Notification> findReadByUserId(Integer id){
+        List<Notification> notifs = notificationRepository.findAll();
+        List<Notification> userNotifs = new ArrayList<>();
+        for(Notification notif : notifs){
+            if(notif.getUser_id().equals(id) && notif.isReadNotif()==true){
+                userNotifs.add(notif);
+            }
+        }
+
+        if(userNotifs.size() >= 0){
+            return userNotifs;
+        }else{
+            return null;
+        }
+
+    }
+    public Notification findById(Integer id){
+        Notification notif = notificationRepository.findById(id).get();
+        return notif;
+    }
+    public Notification save(Notification notif){
+        return notificationRepository.save(notif);
+    }
+    public List<Notification> findUnreadByUserId(Integer id){
+        List<Notification> notifs = notificationRepository.findAll();
+        List<Notification> userNotifs = new ArrayList<>();
+        for(Notification notif : notifs){
+            if(notif.getUser_id().equals(id) && notif.isReadNotif()==false){
+                userNotifs.add(notif);
+            }
+        }
+
+        if(userNotifs.size() >= 0){
+            return userNotifs;
+        }else{
+            return null;
+        }
+
+    }
+
     public void addNotification(Notification notif){
         LocalDateTime createdAt = LocalDateTime.now();
 
