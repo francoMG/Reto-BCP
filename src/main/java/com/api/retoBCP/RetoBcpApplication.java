@@ -24,7 +24,9 @@ public class RetoBcpApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("*");
+				registry.addMapping("/**").
+						allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+						.allowedOrigins("*");
 			}
 		};
 	}
