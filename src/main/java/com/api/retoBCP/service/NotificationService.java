@@ -36,7 +36,7 @@ public class NotificationService {
             }
         }
 
-        if(userNotifs.size() > 0){
+        if(userNotifs.size() >= 0){
             return userNotifs;
         }else{
             return null;
@@ -67,6 +67,7 @@ public class NotificationService {
     public Notification save(Notification notif){
         return notificationRepository.save(notif);
     }
+
     public List<Notification> findUnreadByUserId(Integer id){
         List<Notification> notifs = notificationRepository.findAll();
         List<Notification> userNotifs = new ArrayList<>();
@@ -112,5 +113,17 @@ public class NotificationService {
 
         Notification notif = getAllNotifications().get(getAllNotifications().size()-1);
         return notif;
+    }
+    public void deleteAllByUser(Integer id){
+        List<Notification> notifs = notificationRepository.findAll();
+        List<Notification> userNotifs = new ArrayList<>();
+        for(Notification notif : notifs){
+            if(notif.getUser_id().equals(id) ){
+                userNotifs.add(notif);
+            }
+        }
+
+        userNotifs.forEach(not -> notificationRepository.delete(not));
+
     }
 }

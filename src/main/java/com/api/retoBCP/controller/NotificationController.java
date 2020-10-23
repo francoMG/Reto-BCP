@@ -59,6 +59,11 @@ public class NotificationController {
             return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<?>deleteAllByUser(@PathVariable Integer id){
+        notificationService.deleteAllByUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @PutMapping()
     public ResponseEntity<?> updateEmployee(
