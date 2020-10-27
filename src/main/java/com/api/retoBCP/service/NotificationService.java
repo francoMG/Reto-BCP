@@ -104,7 +104,11 @@ public class NotificationService {
         if(notif.getNotificationType().getType().toString().toLowerCase().equals("withdrawal") && notif.getAmount() > 0){
             notif.setMessage("You withdrew "+notif.getAmount() + " soles into your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
                     + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
-        } else notif.setAmount(-1.0f);
+        } else if(notif.getNotificationType().getType().toString().toLowerCase().equals("deposit3rd") && notif.getAmount() > 0){
+            String tempString = notif.getMessage();
+            notif.setMessage("User "+tempString+ " deposited " +notif.getAmount() + " soles into your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
+                    + createdAt.getMonth()+"/"+createdAt.getDayOfMonth()+"/"+createdAt.getYear());
+        }else notif.setAmount(-1.0f);
 
         notificationRepository.save(notif);
     }
