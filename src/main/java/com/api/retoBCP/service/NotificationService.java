@@ -2,6 +2,7 @@ package com.api.retoBCP.service;
 
 import com.api.retoBCP.model.Notification;
 import com.api.retoBCP.model.NotificationType;
+import com.api.retoBCP.model.UserNotificationSubscription;
 import com.api.retoBCP.repository.NotificationRepository;
 import com.api.retoBCP.repository.NotificationTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +86,17 @@ public class NotificationService {
 
     }
 
-    public void addNotification(Notification notif){
+    public boolean addNotification(Notification notif, UserNotificationSubscription[] subs){
+        Boolean add = false;
+        for (UserNotificationSubscription sub:
+        subs) {
+            if(notif.getNotificationType().getId().equals(sub.getNotificationType_id())){
+                add = true;
+                break;
+            }
+        }
+        if(add == false) return false;
+
         LocalDateTime createdAt = LocalDateTime.now();
 
         Optional<NotificationType> temp = notificationTypeRepository.findById(notif.getNotificationType().getId());
@@ -111,6 +122,7 @@ public class NotificationService {
         }else notif.setAmount(-1.0f);
 
         notificationRepository.save(notif);
+        return true;
     }
 
     public Notification getLastNotification(){

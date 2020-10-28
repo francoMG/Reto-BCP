@@ -1,6 +1,7 @@
 package com.api.retoBCP.controller;
 
 import com.api.retoBCP.model.Notification;
+import com.api.retoBCP.model.UserNotificationSubscription;
 import com.api.retoBCP.service.NotificationService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class NotificationController {
         this.notificationService = notificationService;
     }
 
+    RestTemplate restTemplate = new RestTemplate();
     @GetMapping
     public List<Notification> getAllNotifications(){
         return notificationService.getAllNotifications();
@@ -27,7 +30,16 @@ public class NotificationController {
 
     @PostMapping
     public void addNotification(@RequestBody Notification notification){
-        notificationService.addNotification(notification);
+        ResponseEntity<UserNotificationSubscription[]> responseEntity =
+                restTemplate.getForEntity(
+                        "https://user-subscriptions.herokuapp.com/"+notification.getUser_id(),
+                        UserNotificationSubscription[].class);
+
+        UserNotificationSubscription[] subscriptions = responseEntity.getBody();
+
+        notificationService.addNotification(notification,subscriptions);
+
+
     }
     @GetMapping("/{id}")
     public ResponseEntity<List<Notification>> getNotification(@PathVariable Integer id){
