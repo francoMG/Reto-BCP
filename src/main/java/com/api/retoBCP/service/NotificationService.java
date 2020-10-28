@@ -86,16 +86,8 @@ public class NotificationService {
 
     }
 
-    public boolean addNotification(Notification notif, UserNotificationSubscription[] subs){
-        Boolean add = false;
-        for (UserNotificationSubscription sub:
-        subs) {
-            if(notif.getNotificationType().getId().equals(sub.getNotificationType_id())){
-                add = true;
-                break;
-            }
-        }
-        if(add == false) return false;
+    public void addNotification(Notification notif){
+
 
         LocalDateTime createdAt = LocalDateTime.now();
 
@@ -122,7 +114,7 @@ public class NotificationService {
         }else notif.setAmount(-1.0f);
 
         notificationRepository.save(notif);
-        return true;
+
     }
 
     public Notification getLastNotification(){

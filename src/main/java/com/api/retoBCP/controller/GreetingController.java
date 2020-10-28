@@ -8,6 +8,7 @@ import com.api.retoBCP.model.NotificationType;
 import com.api.retoBCP.model.UserNotificationSubscription;
 import com.api.retoBCP.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 
@@ -48,16 +49,20 @@ public class GreetingController {
     public void testing(Notification notif) throws Exception{
         Thread.sleep(1000); // simulated delay
 
-        ResponseEntity<UserNotificationSubscription[]> responseEntity =
-                restTemplate.getForEntity(
-                        "https://user-subscriptions.herokuapp.com/"+notif.getUser_id(),
-                        UserNotificationSubscription[].class);
+        UserNotificationSubscription temp1 = new UserNotificationSubscription();
+        temp1.setNotificationType_id(notif.getNotificationType().getId());
+        temp1.setUser_id(notif.getUser_id());
 
-        UserNotificationSubscription[] subscriptions = responseEntity.getBody();
+        ResponseEntity<UserNotificationSubscription> responseEntity =
+                restTemplate.postForEntity(
+                        "https://user-subscriptions.herokuapp.com/user-subscriptions/exists/",
+                        temp1, UserNotificationSubscription.class);
 
-        if(notificationService.addNotification(notif,subscriptions)){
+
+        if(responseEntity.getStatusCode() == HttpStatus.OK){
+            notificationService.addNotification(notif);
             Notification temp = notificationService.getLastNotification();
-
+            System.out.println("DAGDGDSGD");
             template.convertAndSendToUser(""+notif.getUser_id().toString(),"/topic/greetings",notif);
 
         }

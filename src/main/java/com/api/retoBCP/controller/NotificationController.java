@@ -37,7 +37,7 @@ public class NotificationController {
 
         UserNotificationSubscription[] subscriptions = responseEntity.getBody();
 
-        notificationService.addNotification(notification,subscriptions);
+        notificationService.addNotification(notification);
 
 
     }
