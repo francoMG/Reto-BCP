@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -92,10 +94,8 @@ public class NotificationService {
     public void addNotification(Notification notif){
 
 
-        LocalDateTime createdAt = LocalDateTime.now();
-        DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-        String formattedDate = dtf.format(ZonedDateTime.now());
-        createdAt = ZonedDateTime.now().toLocalDateTime();
+
+        OffsetDateTime createdAt = OffsetDateTime.now(ZoneId.of("America/New_York"));
 
 
         Optional<NotificationType> temp = notificationTypeRepository.findById(notif.getNotificationType().getId());

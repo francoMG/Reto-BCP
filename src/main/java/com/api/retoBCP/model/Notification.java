@@ -2,6 +2,7 @@ package com.api.retoBCP.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name="notificaciones")
@@ -13,7 +14,7 @@ public class Notification {
     private Integer user_id;
     private String title;
     private String message;
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
     @ManyToOne
     private NotificationType notificationType;
 
@@ -45,11 +46,11 @@ public class Notification {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
