@@ -30,12 +30,7 @@ public class NotificationController {
 
     @PostMapping
     public void addNotification(@RequestBody Notification notification){
-        ResponseEntity<UserNotificationSubscription[]> responseEntity =
-                restTemplate.getForEntity(
-                        "https://user-subscriptions.herokuapp.com/"+notification.getUser_id(),
-                        UserNotificationSubscription[].class);
 
-        UserNotificationSubscription[] subscriptions = responseEntity.getBody();
 
         notificationService.addNotification(notification);
 
