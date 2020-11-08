@@ -34,33 +34,26 @@ public class NotificationService {
         return notif;
     }
     public List<Notification> findByUserId(Integer id){
-        List<Notification> notifs = notificationRepository.findAll();
-        List<Notification> userNotifs = new ArrayList<>();
-        for(Notification notif : notifs){
-            if(notif.getUser_id().equals(id)){
-                userNotifs.add(notif);
-            }
-        }
+        List<Notification> notifs = notificationRepository.getByUserId(id);
 
-        if(userNotifs.size() >= 0){
-            return userNotifs;
+
+        if(notifs.size() >= 0){
+            return notifs;
         }else{
             return null;
         }
 
     }
+    public void deleteAll(){
+        this.notificationRepository.deleteAll();
+    }
 
     public List<Notification> findReadByUserId(Integer id){
-        List<Notification> notifs = notificationRepository.findAll();
-        List<Notification> userNotifs = new ArrayList<>();
-        for(Notification notif : notifs){
-            if(notif.getUser_id().equals(id) && notif.isReadNotif()==true){
-                userNotifs.add(notif);
-            }
-        }
+        List<Notification> notifs = notificationRepository.findReadByUser(id);
 
-        if(userNotifs.size() >= 0){
-            return userNotifs;
+
+        if(notifs.size() >= 0){
+            return notifs;
         }else{
             return null;
         }

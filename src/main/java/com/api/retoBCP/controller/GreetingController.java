@@ -79,7 +79,7 @@ public class GreetingController {
 
     }
 
-    @Scheduled(fixedDelay = 6 * 10000)
+     @Scheduled(fixedDelay = 6 * 10000)
     public void publishUpdates(){
 
         ResponseEntity<UserNotificationSubscription[]> responseEntity =
@@ -107,4 +107,5 @@ public class GreetingController {
         }
 
     }
+
 }

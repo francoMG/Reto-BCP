@@ -28,6 +28,7 @@ public class NotificationController {
         return notificationService.getAllNotifications();
     }
 
+
     @PostMapping
     public void addNotification(@RequestBody Notification notification){
 
@@ -57,6 +58,10 @@ public class NotificationController {
         }
     }
 
+    @DeleteMapping
+    public void deleteAll(){
+        notificationService.deleteAll();
+    }
     @GetMapping("unread/{id}")
     public  ResponseEntity<List<Notification>> getUnReadNotifications(@PathVariable Integer id){
         List<Notification> notifs = notificationService.findUnreadByUserId(id);
