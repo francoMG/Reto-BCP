@@ -101,7 +101,7 @@ public class NotificationService {
         Optional<NotificationType> temp = notificationTypeRepository.findById(notif.getNotificationType().getId());
         notif.setNotificationType(temp.get());
         notif.setCreatedAt(createdAt);
-        System.out.println(notif.getNotificationType().getType().toString());
+
 
         if(notif.getNotificationType().getType().toString().toLowerCase().equals("loggedin")){
             notif.setMessage("You accessed your account at: "+ createdAt.getHour()+":"+createdAt.getMinute()+" on: "
