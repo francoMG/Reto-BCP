@@ -15,11 +15,14 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.HtmlUtils;
 
+@EnableScheduling
 @Controller
 public class GreetingController {
     @Autowired
@@ -67,5 +70,14 @@ public class GreetingController {
 
         }
 
+    }
+
+    @Scheduled(fixedDelay = 6 * 10000)
+    public void publishUpdates(){
+        Notification notif = new Notification();
+        notif.setMessage("Sign up for a new credit card!");
+
+        System.out.println(notif.getMessage());
+        template.convertAndSend("/topic/greetings",notif);
     }
 }
