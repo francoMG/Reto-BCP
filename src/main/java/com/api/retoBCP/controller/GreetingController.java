@@ -70,10 +70,10 @@ public class GreetingController {
 
 
         if(responseEntity.getStatusCode() == HttpStatus.OK){
-            notificationService.addNotification(notif);
-            Notification temp = notificationService.getLastNotification();
+            notif = notificationService.addNotification(notif);
 
-            template.convertAndSendToUser(""+notif.getUser_id().toString(),"/topic/greetings",temp);
+
+            template.convertAndSendToUser(""+notif.getUser_id().toString(),"/topic/greetings",notif);
 
         }
 

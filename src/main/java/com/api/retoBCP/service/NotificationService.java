@@ -84,7 +84,7 @@ public class NotificationService {
 
     }
 
-    public void addNotification(Notification notif){
+    public Notification addNotification(Notification notif){
 
 
 
@@ -114,14 +114,10 @@ public class NotificationService {
         }else notif.setAmount(-1.0f);
 
         notificationRepository.save(notif);
-
-    }
-
-    public Notification getLastNotification(){
-
-        Notification notif = getAllNotifications().get(getAllNotifications().size()-1);
         return notif;
     }
+
+
     public void deleteAllByUser(Integer id){
         List<Notification> notifs = notificationRepository.findAll();
         List<Notification> userNotifs = new ArrayList<>();
