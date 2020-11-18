@@ -24,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.HtmlUtils;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 @EnableScheduling
 @Controller
@@ -87,6 +88,13 @@ public class GreetingController {
                         "https://user-subscriptions.herokuapp.com/user-subscriptions/specific/5",
                         UserNotificationSubscription[].class);
 
+         ArrayList<String> msgs = new ArrayList<>();
+         msgs.add("Sign up for a new credit card!");
+         Random rand = new Random();
+         msgs.add("You won "+rand.nextInt(100)+" soles!");
+         msgs.add("Sign up for Yape!");
+         msgs.add("Win a new car!");
+         msgs.add("Be one of three lucky winners of a new PS5!");
 
         for (UserNotificationSubscription sub:
              responseEntity.getBody()) {
@@ -96,10 +104,9 @@ public class GreetingController {
             notif.setReadNotif(false);
             notif.setAmount(-1.0f);
             notif.setTitle("Promotion!");
-
             notif.setNotificationType(notificationTypeService.getNotificationTypeById(sub.getNotificationType_id()));
 
-            notif.setMessage("Sign up for a new credit card!");
+            notif.setMessage(msgs.get(rand.nextInt(msgs.size())));
             notificationService.addNotification(notif);
 
             template.convertAndSendToUser(""+notif.getUser_id().toString(),"/topic/greetings",notif);
