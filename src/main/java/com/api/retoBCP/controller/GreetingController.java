@@ -44,17 +44,7 @@ public class GreetingController {
     RestTemplate restTemplate = new RestTemplate();
 
 
-    /*@MessageMapping("/hello")
-    @SendToUser("/topic/greetings")
-    public Notification greeting( Notification notif) throws Exception {
-        Thread.sleep(1000); // simulated delay
 
-        notificationService.addNotification(notif);
-        Notification temp = notificationService.getLastNotification();
-
-        return temp;
-    }
-    */
 
     @MessageMapping("/notification")
     public void testing(Notification notif) throws Exception{
@@ -108,7 +98,7 @@ public class GreetingController {
 
             notif.setMessage(msgs.get(rand.nextInt(msgs.size())));
             notificationService.addNotification(notif);
-
+            
             template.convertAndSendToUser(""+notif.getUser_id().toString(),"/topic/greetings",notif);
 
         }
